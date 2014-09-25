@@ -1,21 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
-
 readme = open('README.md').read()
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 requirements = [
-    # TODO: put package requirements here
-    'requests',
-    'click',
-    'xlwt',
+    "click",
+    "requests",
+    "xlwt"
 ]
 
 test_requirements = [
@@ -24,9 +19,9 @@ test_requirements = [
 
 setup(
     name='json2xls',
-    version='0.1.0',
+    version='0.1.3c',
     description='generate excel by json',
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     author='axiaoxin',
     author_email='254606826@qq.com',
     url='https://github.com/axiaoxin/json2xls',
@@ -45,13 +40,11 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    entry_points={
+        'console_scripts': ['json2xls = json2xls.json2xls:make']
+    }
 )

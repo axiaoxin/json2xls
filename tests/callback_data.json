@@ -1,0 +1,38 @@
+[
+    [
+        {
+            "title":
+                {
+                    "tag": ["title_tag1", "title_tag2"],
+                    "ner": ["title_ner1", "title_ner2"],
+                    "comment": { "good": "100", "bad": "20"}
+                }
+        },
+        {
+            "body":
+                {
+                    "tag": ["body_tag1", "body_tag2"],
+                    "ner": ["body_ner1", "body_ner2"],
+                    "comment": { "good": "85", "bad": "60"}
+                }
+        }
+    ],
+    [
+        {
+            "title":
+                {
+                    "tag": ["1title_tag1", "1title_tag2"],
+                    "ner": ["1title_ner1", "1title_ner2"],
+                    "comment": { "good": "1100", "bad": "120"}
+                }
+        },
+        {
+            "body":
+                {
+                    "tag": ["1body_tag1", "1body_tag2"],
+                    "ner": ["1body_ner1", "1body_ner2"],
+                    "comment": { "good": "185", "bad": "160"}
+                }
+        }
+    ]
+]

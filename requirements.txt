@@ -1,3 +1,4 @@
-click==3.3
-requests==2.4.1
-xlwt==0.7.5
+click
+requests
+sphinx-rtd-theme
+xlwt

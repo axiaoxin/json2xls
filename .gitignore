@@ -57,3 +57,4 @@ target/
 *.xls
 *.xlsx
 .~lock*
+.DS_Store
