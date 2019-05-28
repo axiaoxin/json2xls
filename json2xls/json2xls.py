@@ -106,12 +106,12 @@ class Json2Xls(object):
                             for line in source
                         ]
             else:
-                if os.path.isfile(self.headers):
+                if self.headers and os.path.isfile(self.headers):
                     with open(self.headers) as headers_txt:
                         self.headers = self.json_loads(
                             headers_txt.read().decode('utf-8').replace(
                                 '\n', ''))
-                elif isinstance(self.headers, basestring):
+                elif isinstance(self.headers, ("".__class__, u"".__class__)):
                     self.headers = self.json_loads(self.headers)
                 try:
                     if self.method.lower() == 'get':
