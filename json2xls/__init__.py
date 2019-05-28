@@ -130,4 +130,4 @@ __author__ = 'axiaoxin'
 __email__ = '254606826@qq.com'
 __version__ = '0.1.5'
 
-from json2xls import Json2Xls
+from .json2xls import Json2Xls

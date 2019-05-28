@@ -136,7 +136,7 @@ class Json2Xls(object):
                             headers=self.headers)
                         data = resp.json()
                 except Exception as e:
-                    print e
+                    print(e)
         return data
 
     def __fill_title(self, data):
@@ -149,7 +149,7 @@ class Json2Xls(object):
                 self.sheet.col(index).width = (len(key) + 1) * 256
             except Exception:
                 pass
-            self.sheet.row(self.start_row).write(index, key, self.title_style)
+            self.sheet.row(self.start_row).write(index, key.decode('utf-8'), self.title_style)
         self.start_row += 1
 
     def __fill_data(self, data):
