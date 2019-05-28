@@ -13,6 +13,8 @@ json2xls:Generate Excel by JSON data
 
 generate excel by json string or json file or url which return a json
 
+testing on python2.7 and python3.6.0
+
 **docs** <http://json2xls.readthedocs.org/en/latest/>
 
 **install**
@@ -28,23 +30,23 @@ or
 
 #### gen xls from json string
 
-    json2xls tests/cmd_str_test.xls '{"a":"a", "b":"b"}'
-    json2xls tests/cmd_str_test1.xls '[{"a":"a", "b":"b"},{"a":1, "b":2}]'
+    json2xls cmd_str_test.xls '{"a":"a", "b":"b"}'
+    json2xls cmd_str_test1.xls '[{"a":"a", "b":"b"},{"a":1, "b":2}]'
 
 #### gen xls from file: whole file is a complete json data
 
-    json2xls tests/cmd_list_test.xls "`cat tests/list_data.json`"
+    json2xls cmd_list_test.xls "`cat tests/list_data.json`"
 
 #### gen xls from file: each line is a json data
 
-    json2xls tests/cmd_line_test.xls tests/line_data.json
+    json2xls cmd_line_test.xls tests/line_data.json
 
 #### gen xls from a url which respond a json
 
-    json2xls tests/cmd_get_test.xls http://httpbin.org/get
-    json2xls tests/cmd_post_test.xls http://httpbin.org/post -m post -d '"hello json2xls"' -h "{'X-Token': 'bolobolomi'}"
+    json2xls cmd_get_test.xls http://httpbin.org/get
+    json2xls cmd_post_test.xls http://httpbin.org/post -m post -d '"hello json2xls"' -h "{'X-Token': 'bolobolomi'}"
 
-## coding usage:
+## coding usage (python2.7):
 
 #### gen xls from json string
 
@@ -57,7 +59,7 @@ or
         {"姓名": "John", "年龄": 30, "性别": "男"},
         {"姓名": "Alice", "年龄": 18, "性别": "女"}
     ]'''
-    obj = Json2Xls('tests/json_strlist_test.xls', json_data)
+    obj = Json2Xls('json_strlist_test.xls', json_data)
     obj.make()
 
 
@@ -68,7 +70,7 @@ or
         'output': 'json',
         'ak': '5slgyqGDENN7Sy7pw29IUvrZ'
     }
-    Json2Xls('tests/url_get_test.xls',
+    Json2Xls('url_get_test.xls',
              "http://httpbin.org/get",
              params=params).make()
 
@@ -80,7 +82,7 @@ or
         'output': 'json',
         'ak': '5slgyqGDENN7Sy7pw29IUvrZ'
     }
-    Json2Xls('tests/url_post_test1.xls',
+    Json2Xls('url_post_test1.xls',
              "http://httpbin.org/post",
              method='post',
              post_data=post_data,
@@ -89,7 +91,7 @@ or
 #### gen xls from a url which respond a json by POST with file post data
 
     post_data = 'tests/post_data.json'
-    Json2Xls('tests/url_post_test2.xls',
+    Json2Xls('url_post_test2.xls',
              "http://httpbin.org/post",
              method='post',
              post_data=post_data,
@@ -98,11 +100,11 @@ or
 
 #### gen xls from file: whole file is a complete json data （从文件内容为一个json列表的文件生成excel）
 
-    Json2Xls('tests/json_list_test.xls', json_data='tests/list_data.json').make()
+    Json2Xls('json_list_test.xls', json_data='tests/list_data.json').make()
 
 #### gen xls from file: each line is a json data （从文件内容为每行一个的json字符串的文件生成excel）
 
-    obj = Json2Xls('tests/json_line_test.xls', json_data='tests/line_data.json')
+    obj = Json2Xls('json_line_test.xls', json_data='tests/line_data.json')
     obj.make()
 
 #### gen custom excel by define your title and body callback function
@@ -155,4 +157,4 @@ Default only support one layer json to generate the excel, the nested json will 
 you can write the `title_callback` function and `body_callback` function, the pass them in the `make` function.
 for the `body_callback`, you just need to care one line data's write way, json2xls default think the data are all the same.
 
-The test demo data file is in tests dir.
+The test demo data file is in `tests` dir. and `demo.py` is all coding example to gen xls
