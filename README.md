@@ -158,3 +158,8 @@ you can write the `title_callback` function and `body_callback` function, the pa
 for the `body_callback`, you just need to care one line data's write way, json2xls default think the data are all the same.
 
 The test demo data file is in `tests` dir. and `demo.py` is all coding example to gen xls
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/axiaoxin/json2xls.svg)](https://starchart.cc/axiaoxin/json2xls)
+      
