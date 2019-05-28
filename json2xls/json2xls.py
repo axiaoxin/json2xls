@@ -97,14 +97,10 @@ class Json2Xls(object):
             if os.path.isfile(self.json_data):
                 with open(self.json_data, 'r') as source:
                     try:
-                        data = self.json_loads(
-                            source.read().decode('utf-8').replace('\n', ''))
+                        data = self.json_loads(source.read().replace('\n', ''))
                     except Exception:
                         source.seek(0)
-                        data = [
-                            self.json_loads(line.decode('utf-8'))
-                            for line in source
-                        ]
+                        data = [self.json_loads(line) for line in source]
             else:
                 if self.headers and os.path.isfile(self.headers):
                     with open(self.headers) as headers_txt:
@@ -121,12 +117,13 @@ class Json2Xls(object):
                             headers=self.headers)
                         data = resp.json()
                     else:
-                        if isinstance(self.post_data,
-                                      basestring) and os.path.isfile(
-                                          self.post_data):
+                        if isinstance(
+                            self.post_data,
+                            ("".__class__, u"".__class__)) and os.path.isfile(
+                                self.post_data):
                             with open(self.post_data, 'r') as source:
                                 self.post_data = self.json_loads(
-                                    source.read().decode('utf-8').replace(
+                                    source.read().replace(
                                         '\n', ''))
                         if not self.form_encoded:
                             self.post_data = self.json_dumps(self.post_data)
@@ -149,7 +146,8 @@ class Json2Xls(object):
                 self.sheet.col(index).width = (len(key) + 1) * 256
             except Exception:
                 pass
-            self.sheet.row(self.start_row).write(index, key.decode('utf-8'), self.title_style)
+            self.sheet.row(self.start_row).write(index, key.decode('utf-8'),
+                                                 self.title_style)
         self.start_row += 1
 
     def __fill_data(self, data):
