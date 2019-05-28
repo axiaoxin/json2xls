@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 from json2xls.json2xls import Json2Xls
 
@@ -10,33 +10,39 @@ json_data = u'''[
 obj = Json2Xls('tests/json_strlist_test.xls', json_data)
 obj.make()
 
-
 params = {
     'location': u'上海',
     'output': 'json',
     'ak': '5slgyqGDENN7Sy7pw29IUvrZ'
 }
-Json2Xls('tests/url_get_test.xls', "http://httpbin.org/get", params=params).make()
-
+Json2Xls(
+    'tests/url_get_test.xls', "http://httpbin.org/get", params=params).make()
 
 obj = Json2Xls('tests/json_list_test.xls', json_data='tests/list_data.json')
 obj.make()
 
-
 obj = Json2Xls('tests/json_line_test.xls', json_data='tests/line_data.json')
 obj.make()
-
 
 post_data = {
     'location': u'上海',
     'output': 'json',
     'ak': '5slgyqGDENN7Sy7pw29IUvrZ'
 }
-Json2Xls('tests/url_post_test1.xls', "http://httpbin.org/post", method='post', post_data=post_data, form_encoded=True).make()
-
+Json2Xls(
+    'tests/url_post_test1.xls',
+    "http://httpbin.org/post",
+    method='post',
+    post_data=post_data,
+    form_encoded=True).make()
 
 post_data = 'tests/post_data.json'
-Json2Xls('tests/url_post_test2.xls', "http://httpbin.org/post", method='post', post_data=post_data, form_encoded=True).make()
+Json2Xls(
+    'tests/url_post_test2.xls',
+    "http://httpbin.org/post",
+    method='post',
+    post_data=post_data,
+    form_encoded=True).make()
 
 
 def title_callback(self, data):
@@ -57,6 +63,7 @@ def title_callback(self, data):
 
     self.start_row += 3
 
+
 def body_callback(self, data):
 
     key1 = ['title', 'body']
@@ -75,7 +82,7 @@ def body_callback(self, data):
                     col += 1
     self.start_row += 1
 
+
 data = 'tests/callback_data.json'
 j = Json2Xls('tests/callback.xls', data)
 j.make(title_callback=title_callback, body_callback=body_callback)
-

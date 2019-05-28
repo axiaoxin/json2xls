@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding:utf-8
-
 """
 json2xls
 ===========
@@ -129,6 +128,6 @@ API调用::
 
 __author__ = 'axiaoxin'
 __email__ = '254606826@qq.com'
-__version__ = '0.1.3c'
+__version__ = '0.1.4'
 
 from json2xls import Json2Xls

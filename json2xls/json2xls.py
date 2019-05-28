@@ -8,7 +8,6 @@ from functools import partial
 
 import click
 import requests
-
 import xlwt
 from xlwt import Workbook
 
@@ -46,7 +45,9 @@ class Json2Xls(object):
     :param bool dumps: 生成excel时对表格内容执行json_dumps，默认为 :py:class:`False`
     """
 
-    def __init__(self, xls_filename, json_data,
+    def __init__(self,
+                 xls_filename,
+                 json_data,
                  method='get',
                  params=None,
                  post_data=None,
@@ -92,29 +93,32 @@ class Json2Xls(object):
         data = None
         try:
             data = self.json_loads(self.json_data)
-        except:
+        except Exception:
             if os.path.isfile(self.json_data):
                 with open(self.json_data, 'r') as source:
                     try:
                         data = self.json_loads(
                             source.read().decode('utf-8').replace('\n', ''))
-                    except:
+                    except Exception:
                         source.seek(0)
-                        data = [self.json_loads(line.decode('utf-8'))
-                                for line in source]
+                        data = [
+                            self.json_loads(line.decode('utf-8'))
+                            for line in source
+                        ]
             else:
                 if os.path.isfile(self.headers):
                     with open(self.headers) as headers_txt:
                         self.headers = self.json_loads(
-                            headers_txt.read().decode('utf-8').replace('\n',
-                                                                       ''))
+                            headers_txt.read().decode('utf-8').replace(
+                                '\n', ''))
                 elif isinstance(self.headers, basestring):
                     self.headers = self.json_loads(self.headers)
                 try:
                     if self.method.lower() == 'get':
-                        resp = requests.get(self.json_data,
-                                            params=self.params,
-                                            headers=self.headers)
+                        resp = requests.get(
+                            self.json_data,
+                            params=self.params,
+                            headers=self.headers)
                         data = resp.json()
                     else:
                         if isinstance(self.post_data,
@@ -122,13 +126,14 @@ class Json2Xls(object):
                                           self.post_data):
                             with open(self.post_data, 'r') as source:
                                 self.post_data = self.json_loads(
-                                    source.read().decode('utf-8').replace('\n',
-                                                                          ''))
+                                    source.read().decode('utf-8').replace(
+                                        '\n', ''))
                         if not self.form_encoded:
                             self.post_data = self.json_dumps(self.post_data)
-                        resp = requests.post(self.json_data,
-                                             data=self.post_data,
-                                             headers=self.headers)
+                        resp = requests.post(
+                            self.json_data,
+                            data=self.post_data,
+                            headers=self.headers)
                         data = resp.json()
                 except Exception as e:
                     print e
@@ -142,7 +147,7 @@ class Json2Xls(object):
                 key = self.json_dumps(key)
             try:
                 self.sheet.col(index).width = (len(key) + 1) * 256
-            except:
+            except Exception:
                 pass
             self.sheet.row(self.start_row).write(index, key, self.title_style)
         self.start_row += 1
@@ -175,7 +180,7 @@ class Json2Xls(object):
             new_width = min((len(value) + 1) * 256, 256 * 50)
             self.sheet.col(col).width = width \
                 if width > new_width else new_width
-        except:
+        except Exception:
             pass
 
     def flatten(self, data_dict, parent_key='', sep='.'):
@@ -200,7 +205,10 @@ class Json2Xls(object):
                     _flatten(a, parent_key + str(i) + sep, sep)
                     i += 1
             else:
-                out[str(parent_key[:-1])] = str(x)
+                if not isinstance(x, ("".__class__, u"".__class__)):
+                    x = str(x)
+                out[parent_key[:-1].encode('utf-8')] = x
+
         _flatten(data_dict, parent_key, sep)
         return OrderedDict(out)
 
@@ -248,15 +256,17 @@ class Json2Xls(object):
 @click.option('--dumps', '-D', is_flag=True)
 def make(xls_filename, json_data, method, params, post_data, headers, sheet,
          style, form_encoded, dumps):
-    Json2Xls(xls_filename, json_data,
-             method=method,
-             params=params,
-             post_data=post_data,
-             headers=headers,
-             form_encoded=form_encoded,
-             dumps=dumps,
-             sheet_name=sheet,
-             title_style=style).make()
+    Json2Xls(
+        xls_filename,
+        json_data,
+        method=method,
+        params=params,
+        post_data=post_data,
+        headers=headers,
+        form_encoded=form_encoded,
+        dumps=dumps,
+        sheet_name=sheet,
+        title_style=style).make()
 
 
 if __name__ == '__main__':
